@@ -52,11 +52,17 @@ class MaxHeap:
 
     def _heapify_down(self, i):
 
-        if self._is_leaf(i):
-            return 0
+        # if self._is_leaf(i):
+        #     return 0
 
         l_child = self.left_child(i)
         r_child = self.right_child(i)
+
+        if l_child > self.size() or r_child > self.size():
+            return None
+
+        if l_child == None or r_child == None:
+            return 0
 
         if self.heap[l_child] > self.heap[i]:
             self.swap(i,l_child)
@@ -68,6 +74,7 @@ class MaxHeap:
 
         else:
             return self.heap[i]
+        
 
 def heap_sort_descending(arr):
     heap = MaxHeap()
@@ -82,6 +89,11 @@ class LimitedMaxHeap(MaxHeap):
     def insert(self, key):
         # TODO
         pass
+
+# *********************************
+#            Testing
+# *********************************
+
 
 a = MaxHeap()
 
