@@ -24,26 +24,15 @@ class MaxHeap:
         return len(self.heap)
 
     def _is_leaf(self, i):
-        first_leaf = (self.size//2) + 1
-        last_leaf = self.size
-        leaf_indx = list(range(first_leaf,last_leaf))
-        if i in leaf_indx:
+        if i >= self.size // 2:
             return True
         else:
             return False
 
     def _heapify_up(self, i):
-        if (self.left_child(i) <= self.size) and (self.heap[self.left_child(i)] > self.heap[i]):
-            max = self.left_child(i)
-        else:
-            max = i
-
-        if(self.right_child(i) <= self.size) and (self.heap[self.right_child(i)] > self.heap[max]):
-            max = self.right_child(i)
-
-        if (max != i):
-            self.swap(i, max)
-            self._heapify_up(max)
+        if (self.parent(i) < self.heap[i]):
+            self.swap(i, self.parent(i))
+            self._heapify_up(self.parent(i))
 
     def _heapify_down(self, i):
 
