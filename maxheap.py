@@ -33,24 +33,17 @@ class MaxHeap:
             return False
 
     def _heapify_up(self, i):
-        if i == 0:
-            return 0
-        parent = self.parent(i)
-        if self.heap[parent] < self.heap[i]:
-            self.swap(i,parent)
-            self._heapify_up(parent)
+        if (self.left_child(i) <= self.size) and (self.heap[self.left_child(i)] > self.heap[i]):
+            max = self.left_child(i)
         else:
-            return self.heap[i]
+            max = i
 
-    def extract_max(self):
-        if not self.heap:
-            return None
-        if len(self.heap) == 1:
-            return self.heap.pop()
-        max_val = self.heap[0]
-        self.heap[0] = self.heap.pop()
-        self._heapify_down(0)
-        return max_val
+        if(self.right_child(i) <= self.size) and (self.heap[self.right_child(i)] > self.heap[max]):
+            max = self.right_child(i)
+
+        if (max != i):
+            self.swap(i, max)
+            self._heapify_up(max)
 
     def _heapify_down(self, i):
 
@@ -76,6 +69,17 @@ class MaxHeap:
 
         else:
             return self.heap[i]
+        
+    def extract_max(self):
+        if not self.heap:
+            return None
+        if len(self.heap) == 1:
+            return self.heap.pop()
+        max_val = self.heap[0]
+        self.heap[0] = self.heap.pop()
+        self._heapify_down(0)
+        return max_val
+
         
 
 def heap_sort_descending(arr):
