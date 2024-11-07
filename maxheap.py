@@ -2,6 +2,7 @@ class MaxHeap:
     def __init__(self):
         self.heap = []
 
+    
     def parent(self, i):
         return (i - 1) // 2
 
@@ -18,12 +19,13 @@ class MaxHeap:
         self.heap.append(key)
         self._heapify_up(len(self.heap) - 1)
 
+    @property
     def size(self):
         return len(self.heap)
 
     def _is_leaf(self, i):
-        first_leaf = (self.size()//2) + 1
-        last_leaf = self.size()
+        first_leaf = (self.size//2) + 1
+        last_leaf = self.size
         leaf_indx = list(range(first_leaf,last_leaf))
         if i in leaf_indx:
             return True
@@ -58,7 +60,7 @@ class MaxHeap:
         l_child = self.left_child(i)
         r_child = self.right_child(i)
 
-        if l_child > self.size() or r_child > self.size():
+        if l_child > self.size or r_child > self.size:
             return None
 
         if l_child == None or r_child == None:
@@ -88,7 +90,7 @@ class LimitedMaxHeap(MaxHeap):
 
     def insert(self, key):
         
-        if self.size() < self.max_size:
+        if self.size < self.max_size:
             self.heap.append(key)
             self._heapify_up(len(self.heap) - 1)
 
