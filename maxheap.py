@@ -80,6 +80,9 @@ class LimitedMaxHeap(MaxHeap):
 
     def insert(self, key):
         
+        if self.size == self.max_size:
+            self.extract_max()
+
         if self.size < self.max_size:
             self.heap.append(key)
             self._heapify_up(len(self.heap) - 1)
