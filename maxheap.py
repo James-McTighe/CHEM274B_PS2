@@ -84,19 +84,3 @@ class LimitedMaxHeap(MaxHeap):
             self.heap.append(key)
             self._heapify_up(len(self.heap) - 1)
 
-# *********************************
-#            Testing
-# *********************************
-
-
-a = MaxHeap()
-
-for i in range(10):
-    a.insert(i)
-
-print(a.heap)
-a.heap[0] = -1
-print(a.heap)
-a._heapify_down(0)
-print(a.heap)
-print(a.extract_max())
