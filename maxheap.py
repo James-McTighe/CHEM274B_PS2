@@ -17,7 +17,7 @@ class MaxHeap:
 
     def insert(self, key):
         self.heap.append(key)
-        self._heapify_up(len(self.heap) - 1)
+        self._heapify_up(self.size - 1)
 
     @property
     def size(self):
@@ -30,34 +30,24 @@ class MaxHeap:
             return False
 
     def _heapify_up(self, i):
-        if (self.parent(i) < self.heap[i]):
+        while i > 0 and self.heap[self.parent(i)] < self.heap[i]:
             self.swap(i, self.parent(i))
-            self._heapify_up(self.parent(i))
+            i = self.parent(i)
 
     def _heapify_down(self, i):
+        largest = i
+        l = self.left_child(i)
+        r = self.right_child(i)
+        
+        if l < self.size and self.heap[l] > self.heap[largest]:
+            largest = l
 
-        # if self._is_leaf(i):
-        #     return 0
-
-        l_child = self.left_child(i)
-        r_child = self.right_child(i)
-
-        if l_child > self.size or r_child > self.size:
-            return None
-
-        if l_child == None or r_child == None:
-            return 0
-
-        if self.heap[l_child] > self.heap[i]:
-            self.swap(i,l_child)
-            self._heapify_down(l_child)
-
-        elif self.heap[r_child] > self.heap[i]:
-            self.swap(i,r_child)
-            self._heapify_down(r_child)
-
-        else:
-            return self.heap[i]
+        if r < self.size and self.heap[r] > self.heap[largest]:
+            largest = r
+        
+        if largest != i:
+            self.swap(i,largest)
+            self._heapify_down(largest)
         
     def extract_max(self):
         if not self.heap:
@@ -73,8 +63,15 @@ class MaxHeap:
 
 def heap_sort_descending(arr):
     heap = MaxHeap()
-    # TODO
-    pass
+    for i in arr:
+        heap.insert(i)
+
+    sorted_arr = []
+
+    while heap.size > 0:
+        sorted_arr.append(heap.extract_max())
+        
+    return sorted_arr
 
 class LimitedMaxHeap(MaxHeap):
     def __init__(self, max_size):
