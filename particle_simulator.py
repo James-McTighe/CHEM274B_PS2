@@ -16,27 +16,30 @@ class Particle:
 class ParticleHeap:
     def __init__(self):
         self.heap = []
+        heapq.heapify(self.heap)
     
     def push(self, particle: Particle):
-        # TODO: Implement using heapq function call
-        pass
+        heapq.heappush(self.heap,particle)
     
     def pop(self) -> Particle:
-        # TODO: Implement using heapq functional call
-        pass
-    
+        return heapq.heappop(self.heap)
+
     def is_empty(self) -> bool:
-        # TODO: Implement
-        pass
+        return len(self.heap) == 0
 
 def generate_particles(n: int) -> List[Particle]:
-    # TODO: Implement
-    pass
+    list_of_particles = []
+    for x in range(n):
+        new_particle = Particle(n, random.randint(1,10))
+        list_of_particles.append(new_particle)
+    return list_of_particles
 
 def simulate_collision(particle: Particle) -> Tuple[bool, Particle]:
-    # TODO: Implement where chance of collision is 50%
-    # I.e., collision occurs if random.random() < 0.5
-    pass
+       
+    if random.random() > 0.5:
+        return (True, Particle(particle.id, particle.decay_time * 2))
+    else:
+        return (False, None)
 
 def simulate_decay(particles: List[Particle]) -> List[Tuple[int, float]]:
     heap = ParticleHeap()
@@ -53,3 +56,4 @@ def simulate_decay(particles: List[Particle]) -> List[Tuple[int, float]]:
             heap.push(new_particle)
     
     return decay_events
+
