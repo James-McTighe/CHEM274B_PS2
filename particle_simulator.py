@@ -4,17 +4,14 @@ from typing import List, Tuple
 
 class Particle:
     def __init__(self, id: int, decay_time: float):
-        # TODO: Implement
-        pass
+        self.id = id
+        self.decay_time = decay_time
     
     def __lt__(self, other):
-        # TODO: Implement
-        # Less than function should check if decay time of self is less than decay time of other
-        pass
+        return self.decay_time < other.decay_time
 
     def __eq__(self, other):
-        # TODO: Implement
-        pass
+        return self.id == other.id and self.decay_time == other.decay_time
 
 class ParticleHeap:
     def __init__(self):
