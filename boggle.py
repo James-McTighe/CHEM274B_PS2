@@ -51,6 +51,20 @@ class BoggleSolver:
                 self.dfs(board, i, j, "", set(), found_words)
         return list(found_words)
     
-    def dfs(self, board, i, j, current_word, visited, found_words):
-        # TODO: Implement
-        pass
+    def dfs(self, board:BoggleBoard, i:int, j:int, current_word:TrieNode, visited:set, found_words:set):
+        exclusion_criteria = [
+            i < 0,
+            j < 0,
+            i == board.size,
+            j == board.size,
+            (i,j) in visited,
+            board[i][j] not in current_word.children,
+        ]
+
+        if any(exclusion_criteria):
+            return
+        
+        visited.add((i,j))
+        current_word = current_word.children[board[i][j]]
+
+
